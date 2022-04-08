@@ -11,21 +11,10 @@ import {
 } from "react-native";
 import { DataTable } from "react-native-paper";
 
-export default function DataList({ data }) {
-  // column clicked
-  const pressHandler = (id, com, carNum) => {
-    setNum(id);
-    setCom(com);
-    setCarNum(carNum);
-  };
-
+export default function DataList({ data, setControllNum }) {
+  
   const [modalOpen, setModalOpen] = useState(false);
   const [text, setText] = useState();
-
-  // 선택 된 제품 번호
-  const [num, setNum] = useState();
-  const [carNum, setCarNum] = useState();
-  const [com, setCom] = useState();
 
   // 선택 된 제품 번호
   const [selected, setSelected] = useState();
@@ -38,19 +27,19 @@ export default function DataList({ data }) {
         animationType="slide"
         visible={modalOpen}
         transparent={true}
-        productNum = {num}
+        // productNum = {num}
         onRequestClose = {()=>{
-          setCarNum();
-          setCom();
+          // setCarNum();
+          // setCom();
         }}
       >
         {/* Modal Content */}
         {/* Modal Text */}
         <View style={styles.modalConent}>
           <Text style={styles.modalText}>차량번호</Text>
-          <TextInput style={styles.modalInput} onChangeText={setText} placeholder={carNum} />
+          <TextInput style={styles.modalInput} onChangeText={setText}  />
           <Text style={styles.modalText}>고객사</Text>
-          <TextInput style={styles.modalInput} onChangeText={setText} placeholder={com} />
+          <TextInput style={styles.modalInput} onChangeText={setText}  />
 
           {/* Modal button */}
           <View style={{ flexDirection: "row" }}>
@@ -100,9 +89,10 @@ export default function DataList({ data }) {
           return (
             <TouchableOpacity
               onPress={() => {
-                pressHandler(col.num, col.com, col.carNum);
                 setModalOpen(true);
                 setSelected(col.num);
+                // App.js로 선택된 제품번호 보내기
+                setControllNum(col.num);
               }}
             >
               <DataTable.Row key={index} style={{backgroundColor:selected === col.num ? "pink" : "white"}}>

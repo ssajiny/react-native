@@ -1,14 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 
-export default function Registration() {
+export default function Registration({ controllNum }) {
   return (
     <View style={styles.container}>
-      <Pressable style={styles.button} onPress={() => console.log("pressed")}>
+      <Pressable
+        style={styles.button}
+        onPress={() => {
+          console.log(controllNum + "from Registration.js");
+        }}
+      >
         <Text style={styles.text}>상차등록</Text>
       </Pressable>
 
-      <Pressable style={styles.button} onPress={() => console.log("pressed")}>
+      <Pressable
+        style={styles.button}
+        onPress={() => {
+          console.log(controllNum + "from Registration.js");
+        }}
+      >
         <Text style={styles.text}>출하처리</Text>
       </Pressable>
     </View>
