@@ -111,9 +111,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   modalConent: {
-    backgroundColor: "#5050FF",
+    backgroundColor: "#00B9FF",
     padding: 35,
     margin: 60,
+    marginTop: 200,
     width: 300,
     borderColor: "black",
     borderWidth: 1,
@@ -135,6 +136,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 4,
     backgroundColor: "#464646",
+    margin: 5,
+    padding: 5,
+    width: 80,
   },
   modalButtonText: {
     fontSize: 16,

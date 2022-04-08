@@ -77,10 +77,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   header: {
-    flex: 1.5,
+    flex: 1,
   },
   registration: {
-    flex: 1.8,
+    flex: 1.3,
   },
 
   list: {

@@ -12,8 +12,8 @@ export default function Header() {
 
 const styles = StyleSheet.create({
     container:{
-        marginTop: 20,
-        marginBottom: 2,
+        // marginTop: 20,
+        // marginBottom: 2,
         backgroundColor: '#5050FF',
 
     },
