@@ -13,8 +13,8 @@ export default function App() {
       num: "SGB3727123",
       fac: "4면",
       weight: 20400,
-      com: "포항",
-      carNum: "55바1234",
+      com: "광양",
+      carNum: "43타1524",
     },
     { num: "SGB3727124", fac: "4면", weight: 10500, com: "", carNum: "" },
     { num: "SGB3727225", fac: "4면", weight: 2500, com: "", carNum: "" },
@@ -41,6 +41,7 @@ export default function App() {
     { num: "SGB3727165", fac: "4면", weight: 12500, com: "", carNum: "" },
     { num: "SGB3727146", fac: "4면", weight: 17500, com: "", carNum: "" },
   ]);
+
 
   return (
     // container

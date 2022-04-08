@@ -12,12 +12,24 @@ import {
 import { DataTable } from "react-native-paper";
 
 export default function DataList({ data }) {
-  const pressHandler = (id) => {
-    console.log(id);
+  // column clicked
+  const pressHandler = (id, com, carNum) => {
+    setNum(id);
+    setCom(com);
+    setCarNum(carNum);
   };
 
   const [modalOpen, setModalOpen] = useState(false);
   const [text, setText] = useState();
+
+  // 선택 된 제품 번호
+  const [num, setNum] = useState();
+  const [carNum, setCarNum] = useState();
+  const [com, setCom] = useState();
+
+  // 선택 된 제품 번호
+  const [selected, setSelected] = useState();
+
   return (
     // Container
     <View style={styles.container}>
@@ -26,17 +38,19 @@ export default function DataList({ data }) {
         animationType="slide"
         visible={modalOpen}
         transparent={true}
-        onRequestClose={() => {
-          console.log("closed");
+        productNum = {num}
+        onRequestClose = {()=>{
+          setCarNum();
+          setCom();
         }}
       >
         {/* Modal Content */}
         {/* Modal Text */}
         <View style={styles.modalConent}>
           <Text style={styles.modalText}>차량번호</Text>
-          <TextInput style={styles.modalInput} onChangeText={setText} />
+          <TextInput style={styles.modalInput} onChangeText={setText} placeholder={carNum} />
           <Text style={styles.modalText}>고객사</Text>
-          <TextInput style={styles.modalInput} onChangeText={setText} />
+          <TextInput style={styles.modalInput} onChangeText={setText} placeholder={com} />
 
           {/* Modal button */}
           <View style={{ flexDirection: "row" }}>
@@ -66,21 +80,32 @@ export default function DataList({ data }) {
           <DataTable.Title>
             <Text style={styles.title}>순번</Text>
           </DataTable.Title>
-          <DataTable.Title>제품번호</DataTable.Title>
-          <DataTable.Title>공장</DataTable.Title>
-          <DataTable.Title>중량</DataTable.Title>
-          <DataTable.Title>고객사</DataTable.Title>
-          <DataTable.Title>차량번호</DataTable.Title>
+          <DataTable.Title>
+            <Text style={styles.title}>제품번호</Text>
+          </DataTable.Title>
+          <DataTable.Title>
+            <Text style={styles.title}>공장</Text>
+          </DataTable.Title>
+          <DataTable.Title>
+            <Text style={styles.title}>중량</Text>
+          </DataTable.Title>
+          <DataTable.Title>
+            <Text style={styles.title}>고객사</Text>
+          </DataTable.Title>
+          <DataTable.Title>
+            <Text style={styles.title}>차량번호</Text>
+          </DataTable.Title>
         </DataTable.Header>
         {data.map((col, index) => {
           return (
             <TouchableOpacity
               onPress={() => {
-                pressHandler(col.num);
+                pressHandler(col.num, col.com, col.carNum);
                 setModalOpen(true);
+                setSelected(col.num);
               }}
             >
-              <DataTable.Row key={index}>
+              <DataTable.Row key={index} style={{backgroundColor:selected === col.num ? "pink" : "white"}}>
                 <DataTable.Cell>{index + 1}</DataTable.Cell>
                 <DataTable.Cell>{col.num}</DataTable.Cell>
                 <DataTable.Cell>{col.fac}</DataTable.Cell>
@@ -104,10 +129,12 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: "#787878",
+    alignContent: "center",
+    justifyContent: "center",
   },
   title: {
     color: "black",
-    fontSize: 15,
+    fontSize: 13,
     fontWeight: "bold",
   },
   modalConent: {
