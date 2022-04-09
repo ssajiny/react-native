@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable, Alert } from "react-native";
 
-export default function Registration({ controllNum }) {
+export default function Registration({ controllNum, setModalOpen }) {
   return (
     <View style={styles.container}>
       <Pressable
         style={styles.button}
         onPress={() => {
+          setModalOpen(true);
           console.log(controllNum + "from Registration.js");
         }}
       >
@@ -16,7 +17,7 @@ export default function Registration({ controllNum }) {
       <Pressable
         style={styles.button}
         onPress={() => {
-          console.log(controllNum + "from Registration.js");
+          Alert.alert('출하처리', '출하가 정상적으로 처리 되었습니다.');
         }}
       >
         <Text style={styles.text}>출하처리</Text>

@@ -1,13 +1,24 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { View, Text, StyleSheet, Button, Pressable  } from 'react-native';
 
-export default function Controller() {
+export default function Controller({setData}) {
 
     
 
     return(
         <View style={styles.container}>
-            <Pressable style={styles.buttonLeft} onPress={()=>console.log("left")}>
+            <Pressable style={styles.buttonLeft} onPress={()=>{
+                setData(() => {
+                  fetch('http://192.168.56.1:8000/data')
+                    .then(res => {
+                      return res.json()
+                    })
+                    .then((list) => {
+                      setData(list);
+                    })
+                    .catch(e => console.log(e));
+                })
+            }}>
                 <Text style={styles.textLeft}>제품조회</Text>
             </Pressable>
 

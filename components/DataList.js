@@ -11,12 +11,12 @@ import {
 } from "react-native";
 import { DataTable } from "react-native-paper";
 
-export default function DataList({ data, setControllNum }) {
+export default function DataList({ data, setControllNum, modalOpen, setModalOpen, carHandler }) {
   
-  const [modalOpen, setModalOpen] = useState(false);
+  // Modal 창의 input text를 위한 값
   const [text, setText] = useState();
 
-  // 선택 된 제품 번호
+  // 선택 된 제품 번호를 저장하여 background color를 주기 위한 값
   const [selected, setSelected] = useState();
 
   return (
@@ -27,10 +27,8 @@ export default function DataList({ data, setControllNum }) {
         animationType="slide"
         visible={modalOpen}
         transparent={true}
-        // productNum = {num}
         onRequestClose = {()=>{
-          // setCarNum();
-          // setCom();
+
         }}
       >
         {/* Modal Content */}
@@ -47,6 +45,7 @@ export default function DataList({ data, setControllNum }) {
               style={styles.modalButton}
               onPress={() => {
                 setModalOpen(false);
+                carHandler(selected);
               }}
             >
               <Text style={styles.modalButtonText}>등록</Text>
@@ -85,16 +84,17 @@ export default function DataList({ data, setControllNum }) {
             <Text style={styles.title}>차량번호</Text>
           </DataTable.Title>
         </DataTable.Header>
-        {data.map((col, index) => {
+        {data && data.map((col, index) => {
           return (
             <TouchableOpacity
               onPress={() => {
-                setModalOpen(true);
+               // bg color 변경하기 위해
                 setSelected(col.num);
                 // App.js로 선택된 제품번호 보내기
                 setControllNum(col.num);
               }}
             >
+              {/* 선택 된 column bg color 변경 */}
               <DataTable.Row key={index} style={{backgroundColor:selected === col.num ? "pink" : "white"}}>
                 <DataTable.Cell>{index + 1}</DataTable.Cell>
                 <DataTable.Cell>{col.num}</DataTable.Cell>

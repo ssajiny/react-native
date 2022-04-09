@@ -1,48 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text, ScrollView } from "react-native";
 import Header from "./components/Header";
 import DataList from "./components/DataList";
 import Controller from "./components/Controller";
 import Registration from "./components/Registration";
 
-export default function App() {
-  // data
-  const [data, setData] = useState([
-    { num: "SGB3727192", fac: "4면", weight: 20500, com: "", carNum: "" },
-    {
-      num: "SGB3727123",
-      fac: "4면",
-      weight: 20400,
-      com: "광양",
-      carNum: "43타1524",
-    },
-    { num: "SGB3727124", fac: "4면", weight: 10500, com: "", carNum: "" },
-    { num: "SGB3727225", fac: "4면", weight: 2500, com: "", carNum: "" },
-    { num: "SGB3727126", fac: "4면", weight: 20800, com: "", carNum: "" },
-    { num: "SGB3727127", fac: "4면", weight: 22300, com: "", carNum: "" },
-    { num: "SGB3727120", fac: "4면", weight: 21560, com: "", carNum: "" },
-    {
-      num: "SGB3727178",
-      fac: "4면",
-      weight: 32100,
-      com: "포항",
-      carNum: "55바1234",
-    },
-    { num: "SGB3427165", fac: "4면", weight: 12500, com: "", carNum: "" },
-    { num: "SGB3327146", fac: "4면", weight: 17500, com: "", carNum: "" },
-    { num: "SGB3123192", fac: "4면", weight: 20500, com: "", carNum: "" },
-    { num: "SGB3227123", fac: "4면", weight: 20400, com: "", carNum: "" },
-    { num: "SGB3827124", fac: "4면", weight: 10500, com: "", carNum: "" },
-    { num: "SGB3527225", fac: "4면", weight: 2500, com: "", carNum: "" },
-    { num: "SGB3927126", fac: "4면", weight: 20800, com: "", carNum: "" },
-    { num: "SGB3527127", fac: "4면", weight: 22300, com: "", carNum: "" },
-    { num: "SGB3127120", fac: "4면", weight: 21560, com: "", carNum: "" },
-    { num: "SGB3227178", fac: "4면", weight: 32100, com: "", carNum: "" },
-    { num: "SGB3737165", fac: "4면", weight: 12500, com: "", carNum: "" },
-    { num: "SGB3427146", fac: "4면", weight: 17500, com: "", carNum: "" },
-  ]);
+// json server 통신
+// npx json-server --watch data/db.json --port 8000 --host 192.168.56.1
 
-  // 선택 된 column
+export default function App() {
+  // data fetch from server
+  const [data, setData] = useState(null);
+  // useEffect(() => {
+  //   fetch('http://192.168.56.1:8000/data')
+  //     .then(res => {
+  //       return res.json()
+  //     })
+  //     .then((list) => {
+  //       setData(list);
+  //     })
+  //     .catch(e => console.log(e));
+  // }, []);
+
+  // data state 수정
+  const carHandler = (controllNum) => {
+    setData(prevData => {
+      return prevData.filter(data => data.num != controllNum);
+    });
+  };
+
+  // Modal 창 controll
+  const [modalOpen, setModalOpen] = useState(false);
+
+  // 선택 된 column의 제품번호 저장
   const [controllNum, setControllNum] = useState();
   console.log(controllNum + "from App.js");
 
@@ -56,19 +46,29 @@ export default function App() {
 
       {/* registration */}
       <View style={styles.registration}>
-        <Registration controllNum={controllNum} />
+        <Registration 
+        controllNum={controllNum} 
+        setModalOpen={setModalOpen} 
+        />
       </View>
 
       {/* main list */}
       <View style={styles.list}>
         <ScrollView>
-          <DataList data={data} setControllNum={setControllNum} />
+          <DataList data={data} 
+          setControllNum={setControllNum} 
+          modalOpen={modalOpen}
+          setModalOpen={setModalOpen}
+          carHandler={carHandler}
+          />
         </ScrollView>
       </View>
 
       {/* controller */}
       <View style={styles.controller}>
-        <Controller />
+        <Controller 
+        setData={setData}
+        />
       </View>
     </View>
   );
