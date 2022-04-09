@@ -11,30 +11,31 @@ import Registration from "./components/Registration";
 export default function App() {
   // data fetch from server
   const [data, setData] = useState(null);
-  // useEffect(() => {
-  //   fetch('http://192.168.56.1:8000/data')
-  //     .then(res => {
-  //       return res.json()
-  //     })
-  //     .then((list) => {
-  //       setData(list);
-  //     })
-  //     .catch(e => console.log(e));
-  // }, []);
 
+  // DataList의 Modal창으로 부터 입력 받은 carNum, com의 정보를 이용하여 json 업데이트
   // data state 수정
-  const carHandler = (controllNum) => {
-    setData(prevData => {
-      return prevData.filter(data => data.num != controllNum);
+  const carHandler = (selected, tmpCarNum, tmpCom) => {
+    
+    // 선택 된 값 수정
+    data && data.map((tmp) => {
+      if(tmp.num === selected){
+        tmp.carNum = tmpCarNum;
+        tmp.com = tmpCom;
+        
+      }
     });
+
+    // setData((prevData) => {
+    //   return (prevData.filter(data => data.num != selected));
+    // });
   };
+
 
   // Modal 창 controll
   const [modalOpen, setModalOpen] = useState(false);
 
   // 선택 된 column의 제품번호 저장
   const [controllNum, setControllNum] = useState();
-  console.log(controllNum + "from App.js");
 
   return (
     // container

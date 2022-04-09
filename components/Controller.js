@@ -3,8 +3,6 @@ import { View, Text, StyleSheet, Button, Pressable  } from 'react-native';
 
 export default function Controller({setData}) {
 
-    
-
     return(
         <View style={styles.container}>
             <Pressable style={styles.buttonLeft} onPress={()=>{
@@ -22,7 +20,7 @@ export default function Controller({setData}) {
                 <Text style={styles.textLeft}>제품조회</Text>
             </Pressable>
 
-            <Pressable style={styles.buttonRight} onPress={()=>console.log("right")}>
+            <Pressable style={styles.buttonRight} onPress={()=>console.log("송장출력")}>
                 <Text style={styles.textRight}>송장출력</Text>
             </Pressable>
         </View>

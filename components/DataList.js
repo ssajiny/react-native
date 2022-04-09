@@ -11,10 +11,11 @@ import {
 } from "react-native";
 import { DataTable } from "react-native-paper";
 
-export default function DataList({ data, setControllNum, modalOpen, setModalOpen, carHandler }) {
+export default function DataList({ data, setControllNum, modalOpen, setModalOpen, carHandler, setCarNum, setCom }) {
   
-  // Modal 창의 input text를 위한 값
-  const [text, setText] = useState();
+  // Modal 창의 input text를 임시 저장하기 위한 값
+  const [tmpCarNum, setTmpCarNum] = useState();
+  const [tmpCom, setTmpCom] = useState();
 
   // 선택 된 제품 번호를 저장하여 background color를 주기 위한 값
   const [selected, setSelected] = useState();
@@ -35,21 +36,36 @@ export default function DataList({ data, setControllNum, modalOpen, setModalOpen
         {/* Modal Text */}
         <View style={styles.modalConent}>
           <Text style={styles.modalText}>차량번호</Text>
-          <TextInput style={styles.modalInput} onChangeText={setText}  />
+          <TextInput 
+          style={styles.modalInput} 
+          onChangeText={setTmpCarNum}
+          />
           <Text style={styles.modalText}>고객사</Text>
-          <TextInput style={styles.modalInput} onChangeText={setText}  />
+          <TextInput 
+          style={styles.modalInput} 
+          onChangeText={setTmpCom}  
+          />
 
           {/* Modal button */}
           <View style={{ flexDirection: "row" }}>
+            {/* 등록 버튼 */}
             <Pressable
               style={styles.modalButton}
               onPress={() => {
                 setModalOpen(false);
-                carHandler(selected);
+                // tmp 값에 저장된 값을 App.js로 전달  
+                // App.js의 carHandler 함수를 호출
+                carHandler(selected, tmpCarNum, tmpCom);
+                // 저장 되어 있는 값을 초기화
+                setTmpCarNum(null);
+                setTmpCom(null);
+
               }}
             >
               <Text style={styles.modalButtonText}>등록</Text>
             </Pressable>
+
+              {/* 취소 버튼 */}
             <Pressable
               style={styles.modalButton}
               onPress={() => {
