@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text, ScrollView } from "react-native";
+import { StyleSheet, View, Text, ScrollView, Alert } from "react-native";
 import Header from "./components/Header";
 import DataList from "./components/DataList";
 import Controller from "./components/Controller";
@@ -16,14 +16,21 @@ export default function App() {
   // data state 수정
   const carHandler = (selected, tmpCarNum, tmpCom) => {
     
-    // 선택 된 값 수정
-    data && data.map((tmp) => {
+    // 차량, 회사 정보를 입력 안 했을 시
+    if(tmpCarNum === null || tmpCom === null){
+      Alert.alert('오류', '차량번호, 회사를 입력 하세요.');
+    }
+    
+    // Modal창에서 선택 된 값 수정
+    else {data && data.map((tmp) => {
       if(tmp.num === selected){
         tmp.carNum = tmpCarNum;
         tmp.com = tmpCom;
         
       }
-    });
+    }
+    
+    );}
 
     // setData((prevData) => {
     //   return (prevData.filter(data => data.num != selected));
@@ -78,7 +85,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 5,
+    paddingTop: 20,
     backgroundColor: "#fff",
   },
   header: {

@@ -17,7 +17,12 @@ export default function Registration({ controllNum, setModalOpen }) {
       <Pressable
         style={styles.button}
         onPress={() => {
-          Alert.alert('출하처리', '출하가 정상적으로 처리 되었습니다.');
+          Alert.alert('출하처리', `${controllNum} 출하가 정상적으로 처리 되었습니다.`);
+          // 제품 코드 출하 처리로 변경
+
+          // 제품조회 Refresh
+
+
         }}
       >
         <Text style={styles.text}>출하처리</Text>
@@ -35,14 +40,14 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 10,
-    paddingHorizontal: 22,
+    paddingVertical: 6,
+    paddingHorizontal: 15,
     borderRadius: 4,
     elevation: 3,
     backgroundColor: "#464646",
   },
   text: {
-    fontSize: 16,
+    fontSize: 14,
     lineHeight: 21,
     fontWeight: "bold",
     letterSpacing: 0.25,

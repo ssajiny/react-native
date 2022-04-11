@@ -81,10 +81,10 @@ export default function DataList({ data, setControllNum, modalOpen, setModalOpen
       {/* DataTable */}
       <DataTable>
         <DataTable.Header style={styles.header}>
-          <DataTable.Title>
+          <DataTable.Title style={{flex:0.5}}>
             <Text style={styles.title}>순번</Text>
           </DataTable.Title>
-          <DataTable.Title>
+          <DataTable.Title style={{flex:1.5, justifyContent: "center"}}>
             <Text style={styles.title}>제품번호</Text>
           </DataTable.Title>
           <DataTable.Title>
@@ -112,8 +112,8 @@ export default function DataList({ data, setControllNum, modalOpen, setModalOpen
             >
               {/* 선택 된 column bg color 변경 */}
               <DataTable.Row key={index} style={{backgroundColor:selected === col.num ? "pink" : "white"}}>
-                <DataTable.Cell>{index + 1}</DataTable.Cell>
-                <DataTable.Cell>{col.num}</DataTable.Cell>
+                <DataTable.Cell style={{flex:0.5}}>{index + 1}</DataTable.Cell>
+                <DataTable.Cell style={{flex:1.5}}>{col.num}</DataTable.Cell>
                 <DataTable.Cell>{col.fac}</DataTable.Cell>
                 <DataTable.Cell>{col.weight}</DataTable.Cell>
                 <DataTable.Cell>{col.com}</DataTable.Cell>
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   header: {
-    backgroundColor: "#787878",
+    backgroundColor: "#b4b4b4",
     alignContent: "center",
     justifyContent: "center",
   },
@@ -142,6 +142,9 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 13,
     fontWeight: "bold",
+    alignContent: "center",
+    justifyContent: "center"
+
   },
   modalConent: {
     backgroundColor: "#00B9FF",
