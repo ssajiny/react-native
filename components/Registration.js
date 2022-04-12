@@ -17,6 +17,8 @@ export default function Registration({ controllNum, setModalOpen }) {
       <Pressable
         style={styles.button}
         onPress={() => {
+          // 고객사와 차량번호가 입력 되어 있는지 확인 if(...)
+
           Alert.alert('출하처리', `${controllNum} 출하가 정상적으로 처리 되었습니다.`);
           // 제품 코드 출하 처리로 변경
 

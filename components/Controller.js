@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import { View, Text, StyleSheet, Button, Pressable  } from 'react-native';
 
-export default function Controller({setData}) {
+export default function Controller({setData, printInfo}) {
 
     return(
         <View style={styles.container}>
@@ -20,7 +20,7 @@ export default function Controller({setData}) {
                 <Text style={styles.textLeft}>제품조회</Text>
             </Pressable>
 
-            <Pressable style={styles.buttonRight} onPress={()=>console.log("송장출력")}>
+            <Pressable style={styles.buttonRight} onPress={()=>{printInfo()}}>
                 <Text style={styles.textRight}>송장출력</Text>
             </Pressable>
         </View>
