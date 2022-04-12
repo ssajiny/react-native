@@ -3,10 +3,7 @@ import {
   StyleSheet,
   View,
   Text,
-  Alert,
   Pressable,
-  Button,
-  Modal,
 } from "react-native";
 import { DataTable } from "react-native-paper";
 
@@ -29,39 +26,25 @@ export default function Print({ navigation }) {
   }, []);
 
   // Date
-  // 데이터 받아오기
-  const [startDate, setStartDate] = useState(new Date(1598051730000));
-  const [startMode, setStartMode] = useState("date");
+  // start Date picker
+  const [startDate, setStartDate] = useState(new Date());
   const [startShow, setStartShow] = useState(false);
 
   const onStartChange = (event, selectedDate) => {
     const currentDate = selectedDate;
     setStartShow(false);
     setStartDate(currentDate);
-    console.log(startDate + " start date");
-  };
-  const showStartDatepicker = () => {
-    setStartShow(true);
-    setStartMode("date");
   };
 
   // end Date picker
-  const [endDate, setEndDate] = useState(new Date(1598051730000));
-  const [endMode, setEndMode] = useState("date");
+  const [endDate, setEndDate] = useState(new Date());
   const [endShow, setEndShow] = useState(false);
 
   const onEndChange = (event, selectedDate) => {
     const currentDate = selectedDate;
     setEndShow(false);
     setEndDate(currentDate);
-    console.log(endDate + " end date");
   };
-
-  const showEndDatepicker = () => {
-    setEndShow(true);
-    setEndMode("date");
-  };
-
 
   return (
     // Main Container
@@ -73,19 +56,23 @@ export default function Print({ navigation }) {
         {/* From Selector*/}
         <Pressable
           style={styles.dateSelectorButton}
-          onPress={showStartDatepicker}
+          onPress={() => {
+            setStartShow(true);
+          }}
           >
-          <Text style={styles.dateSelectorText}>{startDate ? `${startDate.toDateString()}`: "From"}</Text>
+          <Text style={styles.dateSelectorText}>{`${startDate.getMonth()+1}월 ${startDate.getDate()}일`}</Text>
         </Pressable>
 
-        <Text style={styles.normalText}> ~ </Text>
+        <Text style={styles.normalText}>~</Text>
 
         {/* To Selector*/}
         <Pressable
           style={styles.dateSelectorButton}
-          onPress={showEndDatepicker}
+          onPress={() => {
+            setEndShow(true);
+          }}
           >
-          <Text style={styles.dateSelectorText}>To</Text>
+          <Text style={styles.dateSelectorText}>{`${endDate.getMonth()+1}월 ${endDate.getDate()}일`}</Text>
         </Pressable>
 
 
@@ -93,7 +80,7 @@ export default function Print({ navigation }) {
         <Pressable
           style={styles.dateButton}
           onPress={() => {
-            console.log("조회");
+            console.log(startDate + " ~ " + endDate);
           }}
         >
           <Text style={styles.dateButtonText}>조회</Text>
@@ -103,7 +90,8 @@ export default function Print({ navigation }) {
         <Pressable
           style={styles.dateButton}
           onPress={() => {
-            console.log("출력");
+            
+
           }}
         >
           <Text style={styles.dateButtonText}>출력</Text>
@@ -113,20 +101,20 @@ export default function Print({ navigation }) {
 
         {/* DatePicker */}
         {startShow && (
-          <DateTimePicker
+          <RNDateTimePicker
             testID="dateTimePicker"
             value={startDate}
-            mode={startMode}
+            mode={"date"}
             is24Hour={true}
             onChange={onStartChange}
           />
         )}
 
         {endShow && (
-          <DateTimePicker
+          <RNDateTimePicker
             testID="dateTimePicker"
             value={endDate}
-            mode={endMode}
+            mode={"date"}
             is24Hour={true}
             onChange={onEndChange}
           />
@@ -204,7 +192,7 @@ const styles = StyleSheet.create({
     color: "black",
   },
   dateButton: {
-    marginLeft: 15,
+    marginLeft: 6,
     justifyContent: "center",
     paddingVertical: 6,
     paddingHorizontal: 15,
@@ -236,9 +224,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   normalText: {
-    fontSize: 15,
+    fontSize: 14,
     marginTop: 5,
-    marginLeft: 10,
-    marginRight: 10,
+    marginLeft: 5,
+    marginRight: 5,
   }
 });
