@@ -4,11 +4,21 @@ import {
   View,
   Text,
   Pressable,
+  ScrollView,
 } from "react-native";
 import { DataTable } from "react-native-paper";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
+
+// json server 통신
+// npx json-server --watch data/print.json --port 8000 --host 192.168.56.1
+
+/**
+ * 순번, 연락처, 확인
+ * SHIPMENT_MGM: 출하일자, 제품번호,  고객사, 차량번호
+ * MATERIAL_MGM: 제품번호, 현재 두께, 현재 길이, 현재 폭, 현재 중량, #진도코드, #상태코드
+ */
 
 export default function Print({ navigation }) {
   const [data, setData] = useState();
@@ -124,24 +134,25 @@ export default function Print({ navigation }) {
 
       {/* Data List Container */}
       <View style={styles.dataList}>
+      <ScrollView>
         <DataTable>
           <DataTable.Header style={styles.Listheader}>
-            <DataTable.Title>
+            <DataTable.Title style={{flex:0.5, justifyContent: "center"}}>
               <Text style={styles.title}>순번</Text>
             </DataTable.Title>
-            <DataTable.Title>
+            <DataTable.Title style={{flex:1.5, justifyContent: "center"}}>
+              <Text style={styles.title}>출하일자</Text>
+            </DataTable.Title>
+            <DataTable.Title style={{flex:1.5, justifyContent: "center"}}>
               <Text style={styles.title}>제품번호</Text>
             </DataTable.Title>
-            <DataTable.Title>
-              <Text style={styles.title}>공장</Text>
-            </DataTable.Title>
-            <DataTable.Title>
+            <DataTable.Title style={{flex:1, justifyContent: "center"}}>
               <Text style={styles.title}>중량</Text>
             </DataTable.Title>
-            <DataTable.Title>
+            <DataTable.Title style={{flex:1, justifyContent: "center"}}>
               <Text style={styles.title}>고객사</Text>
-            </DataTable.Title>
-            <DataTable.Title>
+            </DataTable.Title >
+            <DataTable.Title style={{flex:1.2, justifyContent: "center"}}>
               <Text style={styles.title}>차량번호</Text>
             </DataTable.Title>
           </DataTable.Header>
@@ -150,17 +161,18 @@ export default function Print({ navigation }) {
               return (
                 <View>
                   <DataTable.Row key={index}>
-                    <DataTable.Cell>{index + 1}</DataTable.Cell>
-                    <DataTable.Cell>{col.num}</DataTable.Cell>
-                    <DataTable.Cell>{col.fac}</DataTable.Cell>
-                    <DataTable.Cell>{col.weight}</DataTable.Cell>
-                    <DataTable.Cell>{col.com}</DataTable.Cell>
-                    <DataTable.Cell>{col.carNum}</DataTable.Cell>
+                    <DataTable.Cell style={{flex:0.5, justifyContent: "center"}}>{index + 1}</DataTable.Cell>
+                    <DataTable.Cell style={{flex:1.5, justifyContent: "center"}}>{col.date}</DataTable.Cell>
+                    <DataTable.Cell style={{flex:1.5, justifyContent: "center"}}>{col.num}</DataTable.Cell>
+                    <DataTable.Cell style={{flex:1, justifyContent: "center"}}>{col.weight}</DataTable.Cell>
+                    <DataTable.Cell style={{flex:1, justifyContent: "center"}}>{col.com}</DataTable.Cell>
+                    <DataTable.Cell style={{flex:1.2, justifyContent: "center"}}>{col.carNum}</DataTable.Cell>
                   </DataTable.Row>
                 </View>
               );
             })}
         </DataTable>
+        </ScrollView>
       </View>
     </View>
   );

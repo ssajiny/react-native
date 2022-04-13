@@ -8,6 +8,13 @@ import Registration from "./Registration";
 // json server 통신
 // npx json-server --watch data/db.json --port 8000 --host 192.168.56.1
 
+/**
+ * 순번
+ * SHIPMENT_MGM: 제품번호, 중량, #고객사, #차량번호, #출하일자
+ * MATERIAL_MGM: 제품번호, 공장, #진도코드, #상태코드
+ */
+
+
 export default function Main({navigation}) {
   // data fetch from server
   const [data, setData] = useState(null);
