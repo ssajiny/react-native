@@ -14,7 +14,6 @@ import Registration from "./Registration";
  * MATERIAL_MGM: 제품번호, 공장, #진도코드, #상태코드
  */
 
-
 export default function Main({navigation}) {
   // data fetch from server
   const [data, setData] = useState(null);
@@ -30,20 +29,41 @@ export default function Main({navigation}) {
     
     // Modal창에서 선택 된 값 수정
     else {data && data.map((tmp) => {
-      if(tmp.num === selected){
-        tmp.carNum = tmpCarNum;
-        tmp.com = tmpCom;
-        
+      if(tmp.materialNumber === selected){
+        //  화면에 보여지는 state update
+        tmp.carNumber = tmpCarNum;
+        tmp.clientCompany = tmpCom;        
+        // DB Update
+        fetch('http://192.168.56.1:8080/api/export/update/delivery',{
+          method: 'post',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            materialNumber: `${selected}`,
+            clientCompany: `${tmpCom}`,
+            carNumber: `${tmpCarNum}`
+          })
+        })
+          .then(res => {
+            return res.json()
+          })
+          .catch(e => console.log(e));
       }
     }
+    );
+    // selected: 제품번호, tmpCarNum: 차량번호, tmpCom: 고객사
+    // backend update
+
+
     
-    );}
+    console.log(selected + " Main.js");
+  }
 
     // setData((prevData) => {
     //   return (prevData.filter(data => data.num != selected));
     // });
   };
-
 
   // Modal 창 controll
   const [modalOpen, setModalOpen] = useState(false);
@@ -59,18 +79,12 @@ export default function Main({navigation}) {
   return (
     // container
     <View style={styles.container}>
-      {/* header */}
-      {/* header navigation으로 삭제 예정 */}
-      {/* <View style={styles.header}> */}
-        {/* <Header /> */}
-      {/* </View> */}
-
+    
       {/* registration */}
       <View style={styles.registration}>
         <Registration 
         // 제품 번호
         controllNum={controllNum} 
-
         setModalOpen={setModalOpen} 
         />
       </View>
@@ -103,9 +117,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 5,
     backgroundColor: "#fff",
-  },
-  header: {
-    flex: 1,
   },
   registration: {
     flex: 1.3,

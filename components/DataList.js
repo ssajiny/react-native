@@ -56,6 +56,7 @@ export default function DataList({ data, setControllNum, modalOpen, setModalOpen
                 // tmp 값에 저장된 값을 App.js로 전달  
                 // App.js의 carHandler 함수를 호출
                 carHandler(selected, tmpCarNum, tmpCom);
+                
                 // 저장 되어 있는 값을 초기화
                 setTmpCarNum(null);
                 setTmpCom(null);
@@ -100,28 +101,33 @@ export default function DataList({ data, setControllNum, modalOpen, setModalOpen
             <Text style={styles.title}>차량번호</Text>
           </DataTable.Title>
         </DataTable.Header>
+
         {data && data.map((col, index) => {
           return (
             <TouchableOpacity
               onPress={() => {
                // bg color 변경하기 위해
-                setSelected(col.num);
+                setSelected(col.materialNumber);
                 // App.js로 선택된 제품번호 보내기
-                setControllNum(col.num);
+                setControllNum(col.materialNumber);
               }}
             >
               {/* 선택 된 column bg color 변경 */}
-              <DataTable.Row key={index} style={{backgroundColor:selected === col.num ? "pink" : "white"}}>
+              <DataTable.Row key={index} style={{backgroundColor:selected === col.materialNumber ? "pink" : "white"}}>
                 <DataTable.Cell style={{flex:0.5}}>{index + 1}</DataTable.Cell>
-                <DataTable.Cell style={{flex:1.5}}>{col.num}</DataTable.Cell>
-                <DataTable.Cell>{col.fac}</DataTable.Cell>
-                <DataTable.Cell>{col.weight}</DataTable.Cell>
-                <DataTable.Cell>{col.com}</DataTable.Cell>
-                <DataTable.Cell>{col.carNum}</DataTable.Cell>
+                <DataTable.Cell style={{flex:1.5}}>{col.materialNumber}</DataTable.Cell>
+                <DataTable.Cell>{col.factory}</DataTable.Cell>
+                <DataTable.Cell>{col.weightPrd}</DataTable.Cell>
+                <DataTable.Cell>{col.clientCompany}</DataTable.Cell>
+                <DataTable.Cell>{col.carNumber}</DataTable.Cell>
               </DataTable.Row>
             </TouchableOpacity>
           );
         })}
+
+        
+
+        
       </DataTable>
     </View>
   );

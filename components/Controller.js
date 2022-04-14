@@ -6,16 +6,19 @@ export default function Controller({setData, printInfo}) {
     return(
         <View style={styles.container}>
             <Pressable style={styles.buttonLeft} onPress={()=>{
+              // 제품 조회: backend에서 재료코드=3,진도코드=3인 제품번호를 가져온다. (테스트는 1,1로 가져온다)
                 setData(() => {
-                  fetch('http://192.168.56.1:8000/data')
+                  // fetch('http://192.168.56.1:8000/data')
+                  fetch('http://192.168.56.1:8080/api/export/view')
                     .then(res => {
                       return res.json()
                     })
-                    .then((list) => {
-                      setData(list);
+                    .then((list) => {                      
+                      setData(list.data);                      
                     })
                     .catch(e => console.log(e));
                 })
+
             }}>
                 <Text style={styles.textLeft}>제품조회</Text>
             </Pressable>

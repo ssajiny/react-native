@@ -3,26 +3,39 @@ import { View, Text, StyleSheet, Pressable, Alert } from "react-native";
 
 export default function Registration({ controllNum, setModalOpen }) {
   return (
+    // 상차등록, 출하처리 View Container
     <View style={styles.container}>
+      {/* 상차등록 button */}
       <Pressable
         style={styles.button}
         onPress={() => {
-          setModalOpen(true);
-          console.log(controllNum + "from Registration.js");
+          setModalOpen(true);          
         }}
       >
         <Text style={styles.text}>상차등록</Text>
       </Pressable>
 
+      {/* 출하처리 button */}
       <Pressable
         style={styles.button}
         onPress={() => {
           // 고객사와 차량번호가 입력 되어 있는지 확인 if(...)
+          
 
-          Alert.alert('출하처리', `${controllNum} 출하가 정상적으로 처리 되었습니다.`);
+          
+
+          Alert.alert(
+            "출하처리",
+            `${controllNum} 출하가 정상적으로 처리 되었습니다.`
+          );
           // 제품 코드 출하 처리로 변경
 
+
+
           // 제품조회 Refresh
+
+
+
 
 
         }}

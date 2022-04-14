@@ -22,6 +22,7 @@ import RNDateTimePicker from "@react-native-community/datetimepicker";
 
 export default function Print({ navigation }) {
   const [data, setData] = useState();
+  // 진도코드=4 ,상태코드=4 출하완료 된 제품 조회
   useEffect(() => {
     setData(() => {
       fetch("http://192.168.56.1:8000/data")
