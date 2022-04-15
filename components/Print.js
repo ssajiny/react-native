@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  Pressable,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, View, Text, Pressable, ScrollView } from "react-native";
 import { DataTable } from "react-native-paper";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -25,12 +19,12 @@ export default function Print({ navigation }) {
   // 진도코드=4 ,상태코드=4 출하완료 된 제품 조회
   useEffect(() => {
     setData(() => {
-      fetch("http://192.168.56.1:8000/data")
+      fetch("http://192.168.56.1:8080/api/export/view")
         .then((res) => {
           return res.json();
         })
         .then((list) => {
-          setData(list);
+          setData(list.data);
         })
         .catch((e) => console.log(e));
     });
@@ -70,8 +64,10 @@ export default function Print({ navigation }) {
           onPress={() => {
             setStartShow(true);
           }}
-          >
-          <Text style={styles.dateSelectorText}>{`${startDate.getMonth()+1}월 ${startDate.getDate()}일`}</Text>
+        >
+          <Text style={styles.dateSelectorText}>{`${
+            startDate.getMonth() + 1
+          }월 ${startDate.getDate()}일`}</Text>
         </Pressable>
 
         <Text style={styles.normalText}>~</Text>
@@ -82,10 +78,11 @@ export default function Print({ navigation }) {
           onPress={() => {
             setEndShow(true);
           }}
-          >
-          <Text style={styles.dateSelectorText}>{`${endDate.getMonth()+1}월 ${endDate.getDate()}일`}</Text>
+        >
+          <Text style={styles.dateSelectorText}>{`${
+            endDate.getMonth() + 1
+          }월 ${endDate.getDate()}일`}</Text>
         </Pressable>
-
 
         {/* 조회 button */}
         <Pressable
@@ -98,13 +95,7 @@ export default function Print({ navigation }) {
         </Pressable>
 
         {/* 출력 button */}
-        <Pressable
-          style={styles.dateButton}
-          onPress={() => {
-            
-
-          }}
-        >
+        <Pressable style={styles.dateButton} onPress={() => {}}>
           <Text style={styles.dateButtonText}>출력</Text>
         </Pressable>
 
@@ -130,49 +121,72 @@ export default function Print({ navigation }) {
             onChange={onEndChange}
           />
         )}
-
       </View>
 
       {/* Data List Container */}
       <View style={styles.dataList}>
-      <ScrollView>
-        <DataTable>
-          <DataTable.Header style={styles.Listheader}>
-            <DataTable.Title style={{flex:0.5, justifyContent: "center"}}>
-              <Text style={styles.title}>순번</Text>
-            </DataTable.Title>
-            <DataTable.Title style={{flex:1.5, justifyContent: "center"}}>
-              <Text style={styles.title}>출하일자</Text>
-            </DataTable.Title>
-            <DataTable.Title style={{flex:1.5, justifyContent: "center"}}>
-              <Text style={styles.title}>제품번호</Text>
-            </DataTable.Title>
-            <DataTable.Title style={{flex:1, justifyContent: "center"}}>
-              <Text style={styles.title}>중량</Text>
-            </DataTable.Title>
-            <DataTable.Title style={{flex:1, justifyContent: "center"}}>
-              <Text style={styles.title}>고객사</Text>
-            </DataTable.Title >
-            <DataTable.Title style={{flex:1.2, justifyContent: "center"}}>
-              <Text style={styles.title}>차량번호</Text>
-            </DataTable.Title>
-          </DataTable.Header>
-          {data &&
-            data.map((col, index) => {
-              return (
-                <View>
-                  <DataTable.Row key={index}>
-                    <DataTable.Cell style={{flex:0.5, justifyContent: "center"}}>{index + 1}</DataTable.Cell>
-                    <DataTable.Cell style={{flex:1.5, justifyContent: "center"}}>{col.date}</DataTable.Cell>
-                    <DataTable.Cell style={{flex:1.5, justifyContent: "center"}}>{col.num}</DataTable.Cell>
-                    <DataTable.Cell style={{flex:1, justifyContent: "center"}}>{col.weight}</DataTable.Cell>
-                    <DataTable.Cell style={{flex:1, justifyContent: "center"}}>{col.com}</DataTable.Cell>
-                    <DataTable.Cell style={{flex:1.2, justifyContent: "center"}}>{col.carNum}</DataTable.Cell>
-                  </DataTable.Row>
-                </View>
-              );
-            })}
-        </DataTable>
+        <ScrollView>
+          <DataTable>
+            <DataTable.Header style={styles.Listheader}>
+              <DataTable.Title style={{ flex: 0.5, justifyContent: "center" }}>
+                <Text style={styles.title}>순번</Text>
+              </DataTable.Title>
+              <DataTable.Title style={{ flex: 1.5, justifyContent: "center" }}>
+                <Text style={styles.title}>출하일자</Text>
+              </DataTable.Title>
+              <DataTable.Title style={{ flex: 1.5, justifyContent: "center" }}>
+                <Text style={styles.title}>제품번호</Text>
+              </DataTable.Title>
+              <DataTable.Title style={{ flex: 1, justifyContent: "center" }}>
+                <Text style={styles.title}>중량</Text>
+              </DataTable.Title>
+              <DataTable.Title style={{ flex: 1, justifyContent: "center" }}>
+                <Text style={styles.title}>고객사</Text>
+              </DataTable.Title>
+              <DataTable.Title style={{ flex: 1.2, justifyContent: "center" }}>
+                <Text style={styles.title}>차량번호</Text>
+              </DataTable.Title>
+            </DataTable.Header>
+            {data &&
+              data.map((col, index) => {
+                return (
+                  <View>
+                    <DataTable.Row key={index}>
+                      <DataTable.Cell
+                        style={{ flex: 0.5, justifyContent: "center" }}
+                      >
+                        {index + 1}
+                      </DataTable.Cell>
+                      <DataTable.Cell
+                        style={{ flex: 1.5, justifyContent: "center" }}
+                      >
+                        {col.shipmentDate}
+                      </DataTable.Cell>
+                      <DataTable.Cell
+                        style={{ flex: 1.5, justifyContent: "center" }}
+                      >
+                        {col.materialNumber}
+                      </DataTable.Cell>
+                      <DataTable.Cell
+                        style={{ flex: 1, justifyContent: "center" }}
+                      >
+                        {col.weightPrd}
+                      </DataTable.Cell>
+                      <DataTable.Cell
+                        style={{ flex: 1, justifyContent: "center" }}
+                      >
+                        {col.clientCompany}
+                      </DataTable.Cell>
+                      <DataTable.Cell
+                        style={{ flex: 1.2, justifyContent: "center" }}
+                      >
+                        {col.carNumber}
+                      </DataTable.Cell>
+                    </DataTable.Row>
+                  </View>
+                );
+              })}
+          </DataTable>
         </ScrollView>
       </View>
     </View>
@@ -241,5 +255,5 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginLeft: 5,
     marginRight: 5,
-  }
+  },
 });
