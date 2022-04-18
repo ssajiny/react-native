@@ -35,7 +35,7 @@ const Login = ({ navigation }) => {
   const [messageType, setMessageType] = useState();
 
   const handleLogin = (credentials, setSubmitting) => {
-      handleMessage(null);
+    handleMessage(null);
     const url = "http://192.168.56.1:8080/api/export/login";
     axios
       .post(url, credentials)
@@ -43,19 +43,20 @@ const Login = ({ navigation }) => {
         const result = response.data;
         // 사진 참고
         const { message, status, data } = result;
-
-        if (status !== "SUCCESS") {
-          handleMessage(message, status);
+        if (data !== 1) {
+          handleMessage("ID, PW를 확인하세요.", status);
         } else {
           navigation.navigate("Main", { ...data[0] });
         }
         setSubmitting(false);
       })
       .catch((error) => {
-        console.log(error.JSON());
         setSubmitting(false);
-        handleMessage("네트워크에 연결되어 있지 않습니다. 인터넷 연결을 확인하세요.");
+        handleMessage(
+          "네트워크에 연결되어 있지 않습니다. 인터넷 연결을 확인하세요."
+        );
       });
+    
   };
 
   const handleMessage = (message, type = "FAILED") => {
@@ -75,16 +76,15 @@ const Login = ({ navigation }) => {
           <PageTitle>로그인</PageTitle>
           <SubTitle>포스코ICT</SubTitle>
           <Formik
-            initialValues={{ email: "", password: "" }}
-            onSubmit={(values, {setSubmitting}) => {
-                if(values.email == '' || values.password == ''){
-                    handleMessage('아이디, 비밀번호를 입력하세요.');
-                    setSubmitting(false);
-                }else{
-                    handleLogin(values, setSubmitting);
-                }
-              console.log(values);
-            //   navigation.navigate("Main");
+            initialValues={{ userEmpNum: "", userPwd: "" }}
+            onSubmit={(values, { setSubmitting }) => {
+              if (values.userEmpNum == "" || values.userPwd == "") {
+                handleMessage("아이디, 비밀번호를 입력하세요.");
+                setSubmitting(false);
+              } else {
+                handleLogin(values, setSubmitting);
+              }
+              // navigation.navigate("Main");
             }}
           >
             {({
@@ -98,21 +98,20 @@ const Login = ({ navigation }) => {
                 <MyTextInput
                   label="ID"
                   icon="person"
-                  placeholder="ssajiny@naver.com"
+                  placeholder="ssajiny"
                   placeholderTextColor={darkLight}
-                  onChangeText={handleChange("email")}
-                  onBlur={handleBlur("email")}
-                  value={values.email}
-                  keyboardType="email-address"
+                  onChangeText={handleChange("userEmpNum")}
+                  onBlur={handleBlur("userEmpNum")}
+                  value={values.userEmpNum}
                 />
                 <MyTextInput
                   label="Password"
                   icon="lock"
                   placeholder="* * * * * * * *"
                   placeholderTextColor={darkLight}
-                  onChangeText={handleChange("password")}
-                  onBlur={handleBlur("password")}
-                  value={values.password}
+                  onChangeText={handleChange("userPwd")}
+                  onBlur={handleBlur("userPwd")}
+                  value={values.userPwd}
                   secureTextEntry={hidePassword}
                   isPassword={true}
                   hidePassword={hidePassword}
@@ -126,22 +125,9 @@ const Login = ({ navigation }) => {
                 )}
                 {isSubmitting && (
                   <StyledButton onPress={handleSubmit}>
-                    <ActivityIndicator size="large" color={primary}/>
+                    <ActivityIndicator size="large" color={primary} />
                   </StyledButton>
-                )}
-                <Line />
-                <StyledButton onPress={handleSubmit}>
-                  <Fontisto name="google" color={primary} size={25} />
-                  <ButtonText name="google" color={primary} size={25}>
-                    Sign in with Google
-                  </ButtonText>
-                </StyledButton>
-                <ExtraView>
-                  <ExtraText>Don't have an account already?</ExtraText>
-                  <TextLink>
-                    <TextLinkContent>SignUp</TextLinkContent>
-                  </TextLink>
-                </ExtraView>
+                )}                
               </StyledFormArea>
             )}
           </Formik>
