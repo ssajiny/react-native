@@ -38,9 +38,11 @@ export default function MainStack() {
                 headerTitleAlign: 'center',
 
                 // LogOut button
-                // headerLeft: () => (
-                //     <Button title="Logout"/>
-                // )
+                headerLeft: () => (
+                    <Button 
+                    title="PoscoICT"
+                    />
+                )
             }}
            
             />

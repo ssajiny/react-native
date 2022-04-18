@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Pressable, Alert } from "react-native";
 
-export default function Registration({ controllNum, setModalOpen, sendingOut }) {
+export default function Registration({
+  controllNum,
+  setModalOpen,
+  sendingOut,
+  navigation
+}) {
   return (
     // 상차등록, 출하처리 View Container
     <View style={styles.container}>
@@ -9,7 +14,7 @@ export default function Registration({ controllNum, setModalOpen, sendingOut }) 
       <Pressable
         style={styles.button}
         onPress={() => {
-          setModalOpen(true);          
+          setModalOpen(true);
         }}
       >
         <Text style={styles.text}>상차등록</Text>
@@ -23,6 +28,16 @@ export default function Registration({ controllNum, setModalOpen, sendingOut }) 
         }}
       >
         <Text style={styles.text}>출하처리</Text>
+      </Pressable>
+
+      {/* 로그아웃 */}
+      <Pressable
+        style={styles.button}
+        onPress={() => {
+        navigation.goBack();
+        }}
+      >
+        <Text style={styles.text}>로그아웃</Text>
       </Pressable>
     </View>
   );

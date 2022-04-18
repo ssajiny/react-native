@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text, ScrollView, Alert } from "react-native";
+import { StyleSheet, View, Text, ScrollView, Alert, Button } from "react-native";
 import DataList from "./DataList";
 import Controller from "./Controller";
 import Registration from "./Registration";
@@ -130,6 +130,7 @@ export default function Main({ navigation }) {
           controllNum={controllNum}
           setModalOpen={setModalOpen}
           sendingOut={sendingOut}
+          navigation={navigation}
         />
       </View>
 
