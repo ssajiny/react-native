@@ -5,6 +5,7 @@ import { DataTable } from "react-native-paper";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 
+import * as expoPrint from 'expo-print';
 // json server 통신
 // npx json-server --watch data/print.json --port 8000 --host 192.168.56.1
 
@@ -13,7 +14,21 @@ import RNDateTimePicker from "@react-native-community/datetimepicker";
  * SHIPMENT_MGM: 출하일자, 제품번호,  고객사, 차량번호
  * MATERIAL_MGM: 제품번호, 현재 두께, 현재 길이, 현재 폭, 현재 중량, #진도코드, #상태코드
  */
-
+ const html = `
+ <html>
+   <head>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+   </head>
+   <body style="text-align: center;">
+     <h1 style="font-size: 50px; font-family: Helvetica Neue; font-weight: normal;">
+       Hello Expo!
+     </h1>
+     <img
+       src="https://d30j33t1r58ioz.cloudfront.net/static/guides/sdk.png"
+       style="width: 90vw;" />
+   </body>
+ </html>
+ `;
 export default function Print({ navigation }) {
   const [data, setData] = useState();
   // 진도코드=4 ,상태코드=4 출하완료 된 제품 조회
@@ -50,6 +65,29 @@ export default function Print({ navigation }) {
     setEndShow(false);
     setEndDate(currentDate);
   };
+
+  // Print
+  const print = async () => {
+    // On iOS/android prints the given html. On web prints the HTML from the current page.
+    await expoPrint.printAsync({
+      html
+    });
+  }
+
+  const selectPrinter = async () => {
+    const printer = await expoPrint.selectPrinterAsync(); // iOS only
+    setSelectedPrinter(printer);
+  }
+
+  const printToFile = async () => {
+    // On iOS/android prints the given html. On web prints the HTML from the current page.
+    console.log("printtofile");
+    const { uri } = await expoPrint.printToFileAsync({
+      html
+    });
+    console.log('File has been saved to:', uri);
+    await shareAsync(uri, { UTI: '.pdf', mimeType: 'application/pdf' });
+  }
 
   return (
     // Main Container
@@ -95,7 +133,7 @@ export default function Print({ navigation }) {
         </Pressable>
 
         {/* 출력 button */}
-        <Pressable style={styles.dateButton} onPress={() => {}}>
+        <Pressable style={styles.dateButton} onPress={print}>
           <Text style={styles.dateButtonText}>출력</Text>
         </Pressable>
 
