@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import Main from "../components/Main";
 import Print from "../components/Print";
 import Login from '../screens/Login';
-import { Button } from "react-native";
+import { Button, Text } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
@@ -39,9 +39,7 @@ export default function MainStack() {
 
                 // LogOut button
                 headerLeft: () => (
-                    <Button 
-                    title="PoscoICT"
-                    />
+                    <Text></Text>
                 )
             }}
            

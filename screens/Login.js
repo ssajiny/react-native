@@ -71,7 +71,7 @@ const Login = ({ navigation }) => {
         <InnerContainer>
           <PageLogo
             resizeMode="cover"
-            source={require("./../assets/login.png")}
+            source={require("./../assets/posco.png")}
           />
           <PageTitle>로그인</PageTitle>
           <SubTitle>포스코ICT</SubTitle>

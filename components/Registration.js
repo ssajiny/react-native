@@ -32,7 +32,7 @@ export default function Registration({
 
       {/* 로그아웃 */}
       <Pressable
-        style={styles.button}
+        style={styles.LogoutButton}
         onPress={() => {
         navigation.goBack();
         }}
@@ -57,6 +57,18 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     elevation: 3,
     backgroundColor: "#464646",
+    
+  },
+  LogoutButton: {
+    marginLeft: 150,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 6,
+    paddingHorizontal: 15,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: "#464646",
+    
   },
   text: {
     fontSize: 14,

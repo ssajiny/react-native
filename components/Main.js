@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text, ScrollView, Alert, Button } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  Alert,
+  Button,
+} from "react-native";
 import DataList from "./DataList";
 import Controller from "./Controller";
 import Registration from "./Registration";
@@ -75,53 +82,47 @@ export default function Main({ navigation }) {
   // 출하 처리
   const sendingOut = () => {
     // 고객사와 차량번호가 입력 되어 있는지 확인 if(...)  controllNum
-    data && data.map(tmp => {
-      if(tmp.materialNumber === controllNum){
-        if(tmp.carNumber===null || tmp.clientCompany===null){
-          Alert.alert('출하처리', '출하 처리 진행 불가\n차량번호와 고객사를 입력하세요.');
-        }else{
-          // 출하처리
-          // shipmentDate 현재 날짜로 업데이트
-          
+    data &&
+      data.map((tmp) => {
+        if (tmp.materialNumber === controllNum) {
+          if (tmp.carNumber === null || tmp.clientCompany === null) {
+            Alert.alert(
+              "출하처리",
+              "출하 처리 진행 불가\n차량번호와 고객사를 입력하세요."
+            );
+          } else {
+            // 출하처리
+            // shipmentDate 현재 날짜로 업데이트
+            // 제품 코드 출하 처리로 변경
+            fetch("http://192.168.56.1:8080/api/export/update/code", {
+              method: "post",
+              headers: {
+                "Content-type": "application/json",
+              },
+              body: JSON.stringify({
+                materialNumber: `${controllNum}`,
+                clientCompany: `${tmp.clientCompany}`,
+                carNumber: `${tmp.carNumber}`,
+              }),
+            })
+              .then((res) => {
+                return res.json();
+              })
+              .catch((e) => console.log(e));
 
-          Alert.alert(
-            "출하처리",
-            `${controllNum} 출하가 정상적으로 처리 되었습니다.`
-          );
+            // 제품조회 Refresh
+            
+
+            Alert.alert(
+              "출하처리",
+              `${controllNum} 출하가 정상적으로 처리 되었습니다.`
+            );
+          }
         }
-      }
-    })
-
-    
-    // 제품 코드 출하 처리로 변경
-    // 상태코드, 진도코드, 출하날짜 업데이트
-    fetch("http://192.168.56.1:8080/api/export/update/code", {
-        method: "post",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-          materialNumber: `${selected}`,
-          clientCompany: `${tmpCom}`,
-          carNumber: `${tmpCarNum}`,
-        }),
-      })
-        .then((res) => {
-          return res.json();
-        })
-        .catch((e) => console.log(e));
-
-
-
-    // 제품조회 Refresh
-
-
-
-
-  }
+      });
+  };
 
   return (
-
     // container
     <View style={styles.container}>
       {/* registration */}
@@ -153,7 +154,6 @@ export default function Main({ navigation }) {
         <Controller setData={setData} printInfo={printInfo} />
       </View>
     </View>
-
   );
 }
 
