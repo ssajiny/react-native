@@ -6,6 +6,7 @@ import RNDateTimePicker from "@react-native-community/datetimepicker";
 
 import * as expoPrint from "expo-print";
 import { shareAsync } from "expo-sharing";
+import moment from 'moment';
 // json server 통신
 // npx json-server --watch data/print.json --port 8000 --host 192.168.56.1
 
@@ -16,6 +17,9 @@ import { shareAsync } from "expo-sharing";
  */
 
 export default function Print({ navigation }) {
+  let start = '2020-02-02';
+  let end = moment(new Date()).format('YYYY-MM-DD');
+
   const [data, setData] = useState();
   // 진도코드=4 ,상태코드=4 출하완료 된 제품 조회
   useEffect(() => {
@@ -26,8 +30,8 @@ export default function Print({ navigation }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          "startDate": "2022-02-20",
-          "endDate": "2022-04-21"
+          "startDate": start,
+          "endDate": end
         })
       })
       .then((res) => {
@@ -98,8 +102,29 @@ export default function Print({ navigation }) {
         <Pressable
           style={styles.dateButton}
           onPress={() => {
-            console.log(startDate + " ~ " + endDate);
-            console.log(data);
+            // startDate, endDate 변환
+            // Wed Apr 20 2022 03:17:44 GMT+0000 to 2022-4-20
+            start = moment(startDate).format('YYYY-MM-DD');
+            end = moment(endDate).format('YYYY-MM-DD');
+            setData(() => {
+              fetch("http://192.168.56.1:8080/api/export/view/shipment",{
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  "startDate": start,
+                  "endDate": end
+                })
+              })
+              .then((res) => {
+                return res.json();
+              })
+              .then((list) => {                      
+                setData(list.data);                      
+              })
+              .catch(e => console.log(e));
+            });
           }}
         >
           <Text style={styles.dateButtonText}>조회</Text>
@@ -107,7 +132,7 @@ export default function Print({ navigation }) {
 
         {/* 출력 button */}
         <Pressable style={styles.dateButton} onPress={() => {
-          console.log(print);
+          console.log('print');
         }}>
           <Text style={styles.dateButtonText}>출력</Text>
         </Pressable>
