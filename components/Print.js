@@ -72,12 +72,12 @@ export default function Print({ navigation }) {
       t =
         t +
         `<tr>
-       <td>${i}</td>
+       <td>${Number(i)+1}</td>
        <td>${data[i].shipment_date}</td>
        <td>${data[i].material_number}</td>
-       <td>두께</td>
-       <td>길이</td>
-       <td>폭</td>
+       <td>${data[i].current_width}</td>
+       <td>${data[i].current_length}</td>
+       <td>${data[i].current_thickness}</td>
        <td>${data[i].weight_shipment}</td>
        <td>${data[i].client_company}</td>
        <td>${data[i].car_number}</td>
@@ -199,7 +199,6 @@ export default function Print({ navigation }) {
           style={styles.dateButton}
           onPress={() => {
             print();
-            console.log(data);
           }}
         >
           <Text style={styles.dateButtonText}>출력</Text>
