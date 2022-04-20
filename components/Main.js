@@ -94,21 +94,22 @@ export default function Main({ navigation }) {
 
     
     // 제품 코드 출하 처리로 변경
-    // fetch("http://192.168.56.1:8080/api/export/update/code", {
-    //     method: "post",
-    //     headers: {
-    //       "Content-type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       materialNumber: `${selected}`,
-    //       clientCompany: `${tmpCom}`,
-    //       carNumber: `${tmpCarNum}`,
-    //     }),
-    //   })
-    //     .then((res) => {
-    //       return res.json();
-    //     })
-    //     .catch((e) => console.log(e));
+    // 상태코드, 진도코드, 출하날짜 업데이트
+    fetch("http://192.168.56.1:8080/api/export/update/code", {
+        method: "post",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          materialNumber: `${selected}`,
+          clientCompany: `${tmpCom}`,
+          carNumber: `${tmpCarNum}`,
+        }),
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .catch((e) => console.log(e));
 
 
 

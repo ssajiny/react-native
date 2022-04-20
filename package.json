@@ -31,7 +31,9 @@
     "react-native-vector-icons": "^9.1.0",
     "react-native-web": "0.17.1",
     "react-navigation": "^4.4.4",
-    "styled-components": "^5.3.5"
+    "react-to-print": "^2.14.6",
+    "styled-components": "^5.3.5",
+    "expo-sharing": "~10.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
