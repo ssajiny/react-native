@@ -5,8 +5,7 @@ import { DataTable } from "react-native-paper";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 
 import * as expoPrint from "expo-print";
-import { shareAsync } from "expo-sharing";
-import moment from 'moment';
+import moment from "moment";
 // json server 통신
 // npx json-server --watch data/print.json --port 8000 --host 192.168.56.1
 
@@ -17,30 +16,30 @@ import moment from 'moment';
  */
 
 export default function Print({ navigation }) {
-  let start = '2020-02-02';
-  let end = moment(new Date()).format('YYYY-MM-DD');
+  let start = "2020-02-02";
+  let end = moment(new Date()).format("YYYY-MM-DD");
 
   const [data, setData] = useState();
   // 진도코드=4 ,상태코드=4 출하완료 된 제품 조회
   useEffect(() => {
     setData(() => {
-      fetch("http://192.168.56.1:8080/api/export/view/shipment",{
+      fetch("http://192.168.56.1:8080/api/export/view/shipment", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          "startDate": start,
-          "endDate": end
+          startDate: start,
+          endDate: end,
+        }),
+      })
+        .then((res) => {
+          return res.json();
         })
-      })
-      .then((res) => {
-        return res.json();
-      })
-      .then((list) => {                      
-        setData(list.data);                      
-      })
-      .catch(e => console.log(e));
+        .then((list) => {
+          setData(list.data);
+        })
+        .catch((e) => console.log(e));
     });
   }, []);
 
@@ -63,6 +62,71 @@ export default function Print({ navigation }) {
     const currentDate = selectedDate;
     setEndShow(false);
     setEndDate(currentDate);
+  };
+
+  // Print
+  const htmltable = () => {
+    let t = "";
+    for (let i in data) {
+      const item = data[i].material_number;
+      t =
+        t +
+        `<tr>
+       <td>${i}</td>
+       <td>${data[i].shipment_date}</td>
+       <td>${data[i].material_number}</td>
+       <td>두께</td>
+       <td>길이</td>
+       <td>폭</td>
+       <td>${data[i].weight_shipment}</td>
+       <td>${data[i].client_company}</td>
+       <td>${data[i].car_number}</td>
+       <td width=70></td>
+       <td width=30></td>
+     </tr>`;
+    }
+    return t;
+  };
+
+  const htmlContent = `<html>
+    <header></header>
+    <title></title>
+    <style>
+        table, th, td {
+           border:1px solid black;
+        }
+    </style>
+    <body>
+       <table>
+        <th>순번</th>
+        <th>출하일자</th>
+        <th>제품번호</th>
+        <th>두께</th>
+        <th>길이</th>
+        <th>폭</th>
+        <th>중량</th>
+        <th>고객사</th>
+        <th>차량번호</th>
+        <th>연락처</th>
+        <th>확인</th>
+          ${htmltable()}
+       </table>
+    </body>
+</html>`;
+
+  const print = () => {
+    expoPrint
+      .printAsync({
+        html: htmlContent,
+        width: 3508,
+        height: 2480,
+      })
+      .then(() => {
+        setPrintLoadoutLoader(false);
+      })
+      .catch(() => {
+        setPrintLoadoutLoader(false);
+      });
   };
 
   return (
@@ -104,26 +168,26 @@ export default function Print({ navigation }) {
           onPress={() => {
             // startDate, endDate 변환
             // Wed Apr 20 2022 03:17:44 GMT+0000 to 2022-4-20
-            start = moment(startDate).format('YYYY-MM-DD');
-            end = moment(endDate).format('YYYY-MM-DD');
+            start = moment(startDate).format("YYYY-MM-DD");
+            end = moment(endDate).format("YYYY-MM-DD");
             setData(() => {
-              fetch("http://192.168.56.1:8080/api/export/view/shipment",{
+              fetch("http://192.168.56.1:8080/api/export/view/shipment", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                  "startDate": start,
-                  "endDate": end
+                  startDate: start,
+                  endDate: end,
+                }),
+              })
+                .then((res) => {
+                  return res.json();
                 })
-              })
-              .then((res) => {
-                return res.json();
-              })
-              .then((list) => {                      
-                setData(list.data);                      
-              })
-              .catch(e => console.log(e));
+                .then((list) => {
+                  setData(list.data);
+                })
+                .catch((e) => console.log(e));
             });
           }}
         >
@@ -131,9 +195,13 @@ export default function Print({ navigation }) {
         </Pressable>
 
         {/* 출력 button */}
-        <Pressable style={styles.dateButton} onPress={() => {
-          console.log('print');
-        }}>
+        <Pressable
+          style={styles.dateButton}
+          onPress={() => {
+            print();
+            console.log(data);
+          }}
+        >
           <Text style={styles.dateButtonText}>출력</Text>
         </Pressable>
 
