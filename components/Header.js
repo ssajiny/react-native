@@ -12,15 +12,11 @@ export default function Header() {
 
 const styles = StyleSheet.create({
     container:{
-        // marginTop: 20,
-        // marginBottom: 2,
         backgroundColor: '#5050FF',
-
     },
     text:{
         fontSize: 15,
         color: 'white',
-        marginLeft: 35,
-        
+        marginLeft: 35,        
     },
 });

@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { DataTable } from "react-native-paper";
 
-export default function DataList({ data, setControllNum, modalOpen, setModalOpen, carHandler, setCarNum, setCom }) {
+export default function DataList({ data, setControllNum, modalOpen, setModalOpen, carHandler }) {
   
   // Modal 창의 input text를 임시 저장하기 위한 값
   const [tmpCarNum, setTmpCarNum] = useState();
@@ -27,10 +27,7 @@ export default function DataList({ data, setControllNum, modalOpen, setModalOpen
       <Modal
         animationType="slide"
         visible={modalOpen}
-        transparent={true}
-        onRequestClose = {()=>{
-
-        }}
+        transparent={true}        
       >
         {/* Modal Content */}
         {/* Modal Text */}
@@ -124,10 +121,6 @@ export default function DataList({ data, setControllNum, modalOpen, setModalOpen
             </TouchableOpacity>
           );
         })}
-
-        
-
-        
       </DataTable>
     </View>
   );

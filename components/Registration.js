@@ -1,12 +1,7 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, Pressable, Alert } from "react-native";
+import React from "react";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 
-export default function Registration({
-  controllNum,
-  setModalOpen,
-  sendingOut,
-  navigation
-}) {
+export default function Registration({ setModalOpen, sendingOut, navigation }) {
   return (
     // 상차등록, 출하처리 View Container
     <View style={styles.container}>
@@ -34,9 +29,8 @@ export default function Registration({
       <Pressable
         style={styles.LogoutButton}
         onPress={() => {
-        navigation.goBack();
-        }}
-      >
+          navigation.goBack();
+        }}>
         <Text style={styles.text}>로그아웃</Text>
       </Pressable>
     </View>
@@ -57,7 +51,6 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     elevation: 3,
     backgroundColor: "#464646",
-    
   },
   LogoutButton: {
     marginLeft: 150,
@@ -68,7 +61,6 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     elevation: 3,
     backgroundColor: "#464646",
-    
   },
   text: {
     fontSize: 14,

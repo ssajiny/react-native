@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
-import { Octicons, Ionicons, Fontisto } from "@expo/vector-icons";
+import { Octicons, Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 import {
   StyledContainer,
@@ -36,12 +36,11 @@ const Login = ({ navigation }) => {
 
   const handleLogin = (credentials, setSubmitting) => {
     handleMessage(null);
-    const url = "http://192.168.56.1:8080/api/export/login";
+    const url = "http://192.168.0.2:8080/api/export/login";
     axios
       .post(url, credentials)
       .then((response) => {
         const result = response.data;
-        // 사진 참고
         const { message, status, data } = result;
         if (data !== 1) {
           handleMessage("ID, PW를 확인하세요.", status);
@@ -56,7 +55,6 @@ const Login = ({ navigation }) => {
           "네트워크에 연결되어 있지 않습니다. 인터넷 연결을 확인하세요."
         );
       });
-    
   };
 
   const handleMessage = (message, type = "FAILED") => {
@@ -84,7 +82,6 @@ const Login = ({ navigation }) => {
               } else {
                 handleLogin(values, setSubmitting);
               }
-              // navigation.navigate("Main");
             }}
           >
             {({
@@ -127,7 +124,7 @@ const Login = ({ navigation }) => {
                   <StyledButton onPress={handleSubmit}>
                     <ActivityIndicator size="large" color={primary} />
                   </StyledButton>
-                )}                
+                )}
               </StyledFormArea>
             )}
           </Formik>

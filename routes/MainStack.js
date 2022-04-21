@@ -1,10 +1,9 @@
 import React from 'react';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { NavigationContainer } from "@react-navigation/native";
-import Main from "../components/Main";
-import Print from "../components/Print";
+import Main from "../screens/Main";
+import Print from "../screens/Print";
 import Login from '../screens/Login';
-import { Button, Text } from "react-native";
+import { Text } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
@@ -37,7 +36,7 @@ export default function MainStack() {
                 headerTintColor: 'white',
                 headerTitleAlign: 'center',
 
-                // LogOut button
+                // Logout button
                 headerLeft: () => (
                     <Text></Text>
                 )

@@ -1,17 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   View,
-  Text,
   ScrollView,
   Alert,
-  Button,
 } from "react-native";
-import DataList from "./DataList";
-import Controller from "./Controller";
-import Registration from "./Registration";
-// json server 통신
-// npx json-server --watch data/db.json --port 8000 --host 192.168.56.1
+import DataList from "../components/DataList";
+import Controller from "../components/Controller";
+import Registration from "../components/Registration";
 
 /**
  * 순번
@@ -40,7 +36,8 @@ export default function Main({ navigation }) {
             tmp.carNumber = tmpCarNum;
             tmp.clientCompany = tmpCom;
             // DB Update
-            fetch("http://192.168.56.1:8080/api/export/update/delivery", {
+            // fetch("http://192.168.56.1:8080/api/export/update/delivery", {
+            fetch("http://192.168.0.2:8080/api/export/update/delivery", {
               method: "post",
               headers: {
                 "Content-type": "application/json",
@@ -94,7 +91,8 @@ export default function Main({ navigation }) {
             // 출하처리
             // shipmentDate 현재 날짜로 업데이트
             // 제품 코드 출하 처리로 변경
-            fetch("http://192.168.56.1:8080/api/export/update/code", {
+            // fetch("http://192.168.56.1:8080/api/export/update/code", {
+            fetch("http://192.168.0.2:8080/api/export/update/code", {
               method: "post",
               headers: {
                 "Content-type": "application/json",

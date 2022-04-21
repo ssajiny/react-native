@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text, Pressable, ScrollView } from "react-native";
 import { DataTable } from "react-native-paper";
-
 import RNDateTimePicker from "@react-native-community/datetimepicker";
-
 import * as expoPrint from "expo-print";
 import moment from "moment";
-// json server 통신
-// npx json-server --watch data/print.json --port 8000 --host 192.168.56.1
 
 /**
  * 순번, 연락처, 확인
@@ -23,7 +19,7 @@ export default function Print({ navigation }) {
   // 진도코드=4 ,상태코드=4 출하완료 된 제품 조회
   useEffect(() => {
     setData(() => {
-      fetch("http://192.168.56.1:8080/api/export/view/shipment", {
+      fetch("http://192.168.0.2:8080/api/export/view/shipment", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -72,7 +68,7 @@ export default function Print({ navigation }) {
       t =
         t +
         `<tr>
-       <td>${Number(i)+1}</td>
+       <td>${Number(i) + 1}</td>
        <td>${data[i].shipment_date}</td>
        <td>${data[i].material_number}</td>
        <td>${data[i].current_width}</td>
@@ -171,7 +167,7 @@ export default function Print({ navigation }) {
             start = moment(startDate).format("YYYY-MM-DD");
             end = moment(endDate).format("YYYY-MM-DD");
             setData(() => {
-              fetch("http://192.168.56.1:8080/api/export/view/shipment", {
+              fetch("http://192.168.0.2:8080/api/export/view/shipment", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
