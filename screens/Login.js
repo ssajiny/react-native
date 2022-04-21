@@ -29,6 +29,9 @@ import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 
 const { brand, darkLight, primary } = Colors;
 
+/**
+ * 로그인 화면 
+ */
 const Login = ({ navigation }) => {
   const [hidePassword, setHidePassword] = useState(true);
   const [message, setMessage] = useState();
@@ -50,6 +53,7 @@ const Login = ({ navigation }) => {
         setSubmitting(false);
       })
       .catch((error) => {
+        console.log(error);
         setSubmitting(false);
         handleMessage(
           "네트워크에 연결되어 있지 않습니다. 인터넷 연결을 확인하세요."

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 
-export default function Registration({ setModalOpen, sendingOut, navigation }) {
+export default function Registration({ setModalOpen, sendingOut, navigation, controllNum }) {
   return (
     // 상차등록, 출하처리 View Container
     <View style={styles.container}>
@@ -9,7 +9,7 @@ export default function Registration({ setModalOpen, sendingOut, navigation }) {
       <Pressable
         style={styles.button}
         onPress={() => {
-          setModalOpen(true);
+          controllNum && setModalOpen(true);
         }}
       >
         <Text style={styles.text}>상차등록</Text>

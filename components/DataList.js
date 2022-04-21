@@ -5,19 +5,19 @@ import {
   Text,
   TouchableOpacity,
   Modal,
-  Button,
   TextInput,
   Pressable,
 } from "react-native";
 import { DataTable } from "react-native-paper";
 
+// modal창과 main의 datalist를 controll
 export default function DataList({ data, setControllNum, modalOpen, setModalOpen, carHandler }) {
   
   // Modal 창의 input text를 임시 저장하기 위한 값
   const [tmpCarNum, setTmpCarNum] = useState();
   const [tmpCom, setTmpCom] = useState();
 
-  // 선택 된 제품 번호를 저장하여 background color를 주기 위한 값
+  // 선택 된 제품 번호를 저장하여, 선택된 column의 background color를 변경하기 위한 값
   const [selected, setSelected] = useState();
 
   return (
@@ -50,8 +50,8 @@ export default function DataList({ data, setControllNum, modalOpen, setModalOpen
               style={styles.modalButton}
               onPress={() => {
                 setModalOpen(false);
-                // tmp 값에 저장된 값을 App.js로 전달  
-                // App.js의 carHandler 함수를 호출
+                // tmp 값에 저장된 값을 Main.js로 전달  
+                // Main.js의 carHandler 함수를 호출
                 carHandler(selected, tmpCarNum, tmpCom);
                 
                 // 저장 되어 있는 값을 초기화
