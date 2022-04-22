@@ -19,7 +19,7 @@ export default function Print({ navigation }) {
   // 진도코드=4 ,상태코드=4 출하완료 된 제품 조회
   useEffect(() => {
     setData(() => {
-      fetch("http://192.168.0.2:8080/api/export/view/shipment", {
+      fetch("http://192.168.0.47:8080/api/export/view/shipment", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -68,8 +68,8 @@ export default function Print({ navigation }) {
       t =
         t +
         `<tr>
-       <td>${Number(i) + 1}</td>
-       <td>${data[i].shipment_date}</td>
+       <td style="text-align:center;">${Number(i) + 1}</td>
+       <td style="width:90">${data[i].shipment_date}</td>
        <td>${data[i].material_number}</td>
        <td>${data[i].current_width}</td>
        <td>${data[i].current_length}</td>
@@ -78,7 +78,7 @@ export default function Print({ navigation }) {
        <td>${data[i].client_company}</td>
        <td>${data[i].car_number}</td>
        <td width=70></td>
-       <td width=30></td>
+       <td style="width=40"></td>
      </tr>`;
     }
     return t;
@@ -94,17 +94,17 @@ export default function Print({ navigation }) {
     </style>
     <body>
        <table>
-        <th>순번</th>
-        <th>출하일자</th>
-        <th>제품번호</th>
-        <th>두께</th>
-        <th>길이</th>
-        <th>폭</th>
-        <th>중량</th>
-        <th>고객사</th>
-        <th>차량번호</th>
-        <th>연락처</th>
-        <th>확인</th>
+        <th style="font-size:7px; background-color:grey">순번</th>
+        <th style="background-color:grey">출하일자</th>
+        <th style="background-color:grey">제품번호</th>
+        <th style="background-color:grey">두께</th>
+        <th style="background-color:grey">길이</th>
+        <th style="background-color:grey">폭</th>
+        <th style="background-color:grey">중량</th>
+        <th style="background-color:grey">고객사</th>
+        <th style="background-color:grey">차량번호</th>
+        <th style="background-color:grey">연락처</th>
+        <th style="background-color:grey">확인</th>
           ${htmltable()}
        </table>
     </body>
@@ -167,7 +167,7 @@ export default function Print({ navigation }) {
             start = moment(startDate).format("YYYY-MM-DD");
             end = moment(endDate).format("YYYY-MM-DD");
             setData(() => {
-              fetch("http://192.168.0.2:8080/api/export/view/shipment", {
+              fetch("http://192.168.0.47:8080/api/export/view/shipment", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -351,8 +351,7 @@ const styles = StyleSheet.create({
   },
   normalText: {
     fontSize: 14,
-    marginTop: 5,
-    marginLeft: 5,
-    marginRight: 5,
+    fontWeight: "bold",
+    margin: 7,
   },
 });

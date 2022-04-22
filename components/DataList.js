@@ -7,12 +7,18 @@ import {
   Modal,
   TextInput,
   Pressable,
+  Dimensions
 } from "react-native";
 import { DataTable } from "react-native-paper";
 
 // modal창과 main의 datalist를 controll
-export default function DataList({ data, setControllNum, modalOpen, setModalOpen, carHandler }) {
-  
+export default function DataList({
+  data,
+  setControllNum,
+  modalOpen,
+  setModalOpen,
+  carHandler,
+}) {
   // Modal 창의 input text를 임시 저장하기 위한 값
   const [tmpCarNum, setTmpCarNum] = useState();
   const [tmpCom, setTmpCom] = useState();
@@ -27,21 +33,15 @@ export default function DataList({ data, setControllNum, modalOpen, setModalOpen
       <Modal
         animationType="slide"
         visible={modalOpen}
-        transparent={true}        
+        transparent={true}       
       >
         {/* Modal Content */}
         {/* Modal Text */}
         <View style={styles.modalConent}>
           <Text style={styles.modalText}>차량번호</Text>
-          <TextInput 
-          style={styles.modalInput} 
-          onChangeText={setTmpCarNum}
-          />
+          <TextInput style={styles.modalInput} onChangeText={setTmpCarNum} />
           <Text style={styles.modalText}>고객사</Text>
-          <TextInput 
-          style={styles.modalInput} 
-          onChangeText={setTmpCom}  
-          />
+          <TextInput style={styles.modalInput} onChangeText={setTmpCom} />
 
           {/* Modal button */}
           <View style={{ flexDirection: "row" }}>
@@ -50,20 +50,19 @@ export default function DataList({ data, setControllNum, modalOpen, setModalOpen
               style={styles.modalButton}
               onPress={() => {
                 setModalOpen(false);
-                // tmp 값에 저장된 값을 Main.js로 전달  
+                // tmp 값에 저장된 값을 Main.js로 전달
                 // Main.js의 carHandler 함수를 호출
                 carHandler(selected, tmpCarNum, tmpCom);
                 
                 // 저장 되어 있는 값을 초기화
                 setTmpCarNum(null);
                 setTmpCom(null);
-
               }}
             >
               <Text style={styles.modalButtonText}>등록</Text>
             </Pressable>
 
-              {/* 취소 버튼 */}
+            {/* 취소 버튼 */}
             <Pressable
               style={styles.modalButton}
               onPress={() => {
@@ -79,10 +78,10 @@ export default function DataList({ data, setControllNum, modalOpen, setModalOpen
       {/* DataTable */}
       <DataTable>
         <DataTable.Header style={styles.header}>
-          <DataTable.Title style={{flex:0.5}}>
+          <DataTable.Title style={{ flex: 0.5 }}>
             <Text style={styles.title}>순번</Text>
           </DataTable.Title>
-          <DataTable.Title style={{flex:1.5, justifyContent: "center"}}>
+          <DataTable.Title style={{ flex: 1.5, justifyContent: "center" }}>
             <Text style={styles.title}>제품번호</Text>
           </DataTable.Title>
           <DataTable.Title>
@@ -99,28 +98,39 @@ export default function DataList({ data, setControllNum, modalOpen, setModalOpen
           </DataTable.Title>
         </DataTable.Header>
 
-        {data && data.map((col, index) => {
-          return (
-            <TouchableOpacity
-              onPress={() => {
-               // bg color 변경하기 위해
-                setSelected(col.materialNumber);
-                // App.js로 선택된 제품번호 보내기
-                setControllNum(col.materialNumber);
-              }}
-            >
-              {/* 선택 된 column bg color 변경 */}
-              <DataTable.Row key={index} style={{backgroundColor:selected === col.materialNumber ? "pink" : "white"}}>
-                <DataTable.Cell style={{flex:0.5}}>{index + 1}</DataTable.Cell>
-                <DataTable.Cell style={{flex:1.5}}>{col.materialNumber}</DataTable.Cell>
-                <DataTable.Cell>{col.factory}</DataTable.Cell>
-                <DataTable.Cell>{col.weightPrd}</DataTable.Cell>
-                <DataTable.Cell>{col.clientCompany}</DataTable.Cell>
-                <DataTable.Cell>{col.carNumber}</DataTable.Cell>
-              </DataTable.Row>
-            </TouchableOpacity>
-          );
-        })}
+        {data &&
+          data.map((col, index) => {
+            return (
+              <TouchableOpacity
+                onPress={() => {
+                  // bg color 변경하기 위해
+                  setSelected(col.materialNumber);
+                  // App.js로 선택된 제품번호 보내기
+                  setControllNum(col.materialNumber);
+                }}
+              >
+                {/* 선택 된 column bg color 변경 */}
+                <DataTable.Row
+                  key={index}
+                  style={{
+                    backgroundColor:
+                      selected === col.materialNumber ? "pink" : "white",
+                  }}
+                >
+                  <DataTable.Cell style={{ flex: 0.5 }}>
+                    {index + 1}
+                  </DataTable.Cell>
+                  <DataTable.Cell style={{ flex: 1.5 }}>
+                    {col.materialNumber}
+                  </DataTable.Cell>
+                  <DataTable.Cell>{col.factory}</DataTable.Cell>
+                  <DataTable.Cell>{col.weightPrd}</DataTable.Cell>
+                  <DataTable.Cell>{col.clientCompany}</DataTable.Cell>
+                  <DataTable.Cell>{col.carNumber}</DataTable.Cell>
+                </DataTable.Row>
+              </TouchableOpacity>
+            );
+          })}
       </DataTable>
     </View>
   );
@@ -142,14 +152,13 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: "bold",
     alignContent: "center",
-    justifyContent: "center"
-
+    justifyContent: "center",
   },
   modalConent: {
     backgroundColor: "#00B9FF",
     padding: 35,
-    margin: 60,
-    marginTop: 200,
+    marginLeft: Dimensions.get('window').width * 0.5 - 150,
+    marginTop: Dimensions.get('window').width * 0.5,
     width: 300,
     borderColor: "black",
     borderWidth: 1,

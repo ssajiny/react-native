@@ -11,7 +11,7 @@ export default function Controller({ setData, printInfo }) {
           // 제품 조회: backend에서 재료코드=3, 진도코드=3인 제품번호를 가져와 main의 data를 업데이트 한다.
           // 테스트는 1, 1로 가져온다.
           setData(() => {
-            fetch("http://192.168.0.2:8080/api/export/view")
+            fetch("http://192.168.0.47:8080/api/export/view")
               .then((res) => {
                 return res.json();
               })

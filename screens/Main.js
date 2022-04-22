@@ -18,7 +18,8 @@ export default function Main({ navigation }) {
   // 상차등록, data state update
   const carHandler = (selected, tmpCarNum, tmpCom) => {
     // 차량, 회사 정보가 null 일 때
-    if (tmpCarNum === null || tmpCom === null) {
+    console.log(selected, tmpCarNum, tmpCom);
+    if (tmpCarNum === null || tmpCom === null || tmpCarNum === '' || tmpCom === '') {
       Alert.alert("오류", "차량번호, 회사를 입력 하세요.");
     }
     // Modal창에서 선택 된 값을 이용하여 data update
@@ -33,7 +34,7 @@ export default function Main({ navigation }) {
             tmp.clientCompany = tmpCom;
             // DB Update
             // 제품번호를 이용하여 나머지 state를 업데이트 한다.
-            fetch("http://192.168.0.2:8080/api/export/update/delivery", {
+            fetch("http://192.168.0.47:8080/api/export/update/delivery", {
               method: "post",
               headers: {
                 "Content-type": "application/json",
@@ -83,7 +84,7 @@ export default function Main({ navigation }) {
             // 출하처리
             // shipmentDate 현재 날짜로 업데이트
             // 제품 코드 출하 처리로 변경
-            fetch("http://192.168.0.2:8080/api/export/update/code", {
+            fetch("http://192.168.0.47:8080/api/export/update/code", {
               method: "post",
               headers: {
                 "Content-type": "application/json",

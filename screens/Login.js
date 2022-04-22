@@ -18,17 +18,14 @@ import {
   ButtonText,
   Colors,
   MsgBox,
-  Line,
-  ExtraView,
-  ExtraText,
-  TextLink,
-  TextLinkContent,
 } from "./../components/styles";
-import { View, ActivityIndicator } from "react-native";
+import { View, ActivityIndicator, LogBox } from "react-native";
 import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 
 const { brand, darkLight, primary } = Colors;
 
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();//Ignore all log notifications
 /**
  * 로그인 화면 
  */
@@ -39,7 +36,7 @@ const Login = ({ navigation }) => {
 
   const handleLogin = (credentials, setSubmitting) => {
     handleMessage(null);
-    const url = "http://192.168.0.2:8080/api/export/login";
+    const url = "http://192.168.0.47:8080/api/export/login";
     axios
       .post(url, credentials)
       .then((response) => {
