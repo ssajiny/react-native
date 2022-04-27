@@ -167,7 +167,7 @@ export default function Print({ navigation }) {
             start = moment(startDate).format("YYYY-MM-DD");
             end = moment(endDate).format("YYYY-MM-DD");
             setData(() => {
-              fetch("http://192.168.0.47:8080/api/export/view/shipment", {
+              fetch("http://34.64.199.56:8888/api/export/view/shipment", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",

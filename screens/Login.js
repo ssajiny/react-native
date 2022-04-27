@@ -36,7 +36,7 @@ const Login = ({ navigation }) => {
 
   const handleLogin = (credentials, setSubmitting) => {
     handleMessage(null);
-    const url = "http://192.168.0.47:8080/api/export/login";
+    const url = "http://34.64.199.56:8888/api/export/login";
     axios
       .post(url, credentials)
       .then((response) => {

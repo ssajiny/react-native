@@ -34,7 +34,7 @@ export default function Main({ navigation }) {
             tmp.clientCompany = tmpCom;
             // DB Update
             // 제품번호를 이용하여 나머지 state를 업데이트 한다.
-            fetch("http://192.168.0.47:8080/api/export/update/delivery", {
+            fetch("http://34.64.199.56:8888/api/export/update/delivery", {
               method: "post",
               headers: {
                 "Content-type": "application/json",
@@ -84,7 +84,7 @@ export default function Main({ navigation }) {
             // 출하처리
             // shipmentDate 현재 날짜로 업데이트
             // 제품 코드 출하 처리로 변경
-            fetch("http://192.168.0.47:8080/api/export/update/code", {
+            fetch("http://34.64.199.56:8888/api/export/update/code", {
               method: "post",
               headers: {
                 "Content-type": "application/json",
